@@ -1,4 +1,5 @@
-# Y—Tags
+![Y—Tags](https://user-images.githubusercontent.com/1037520/220168883-0452b4bb-bd1c-41cd-b29f-207eb93fa25b.jpeg)
+_Accessible and customizable tag user interface elements for iOS._
 
 Licensing
 ----------
