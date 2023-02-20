@@ -8,10 +8,10 @@
 
 /// Sample package
 public struct Package {
-    /// sample text
+    /// Sample text
     public private(set) var text = "Hello, World!"
     
-    /// Initialize package.
+    /// Initialize package
     public init() {
     }
 }
