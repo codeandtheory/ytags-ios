@@ -6,10 +6,7 @@ import PackageDescription
 let package = Package(
     name: "YTags",
     platforms: [
-        .iOS(.v14),
-        .tvOS(.v14),
-        .macOS(.v11),
-        .watchOS(.v7)
+        .iOS(.v14)
     ],
     products: [
         .library(
