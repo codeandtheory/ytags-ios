@@ -14,10 +14,20 @@ let package = Package(
             targets: ["YTags"]
         )
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/yml-org/YCoreUI.git",
+            from: "1.4.0"
+        ),
+        .package(
+            url: "https://github.com/yml-org/YMatterType.git",
+            from: "1.4.0"
+        )
+    ],
     targets: [
         .target(
             name: "YTags",
-            dependencies: []
+            dependencies: ["YCoreUI", "YMatterType"]
         ),
         .testTarget(
             name: "YTagsTests",
