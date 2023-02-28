@@ -36,19 +36,32 @@ final class TagViewTests: XCTestCase {
     
     func test_showIcon() throws {
         let sut = makeSUT(headerTitle: "title")
-        let backgroundColor: UIColor = .red
-        let borderColor: UIColor = .red
-        
-        XCTAssertTrue(sut.iconImageView.isHidden)
-        XCTAssertEqual(sut.backgroundColor, .clear)
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
-        sut.appearance = TagView.Appearance(icon: (image, CGSize(width: 44, height: 44)))
+        let size = CGSize(width: 44, height: 44)
+
+        XCTAssertTrue(sut.iconImageView.isHidden)
+        sut.appearance = TagView.Appearance(icon: (image, size))
+        sut.layoutIfNeeded()
+
+        XCTAssertFalse(sut.iconImageView.isHidden)
+        XCTAssertEqual(sut.iconImageView.image, image)
+        XCTAssertEqual(sut.iconImageView.bounds.width, size.width)
+    }
+
+    func test_changeAppearance() throws {
+        let sut = makeSUT(headerTitle: "title")
+        let backgroundColor: UIColor = .red
+        let borderColor: UIColor = .purple
+        let borderWidth = CGFloat(Int.random(in: 1...8))
+
+        XCTAssertEqual(sut.backgroundColor, .clear)
         sut.appearance.backgroundColor = backgroundColor
         sut.appearance.borderColor = borderColor
-        
+        sut.appearance.borderWidth = borderWidth
+
         XCTAssertEqual(sut.backgroundColor, backgroundColor)
-        XCTAssertEqual(sut.appearance.borderColor, borderColor)
-        XCTAssertFalse(sut.iconImageView.isHidden)
+        XCTAssertEqual(sut.layer.borderColor, borderColor.cgColor)
+        XCTAssertEqual(sut.layer.borderWidth, borderWidth)
     }
 }
 
