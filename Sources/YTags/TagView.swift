@@ -56,15 +56,16 @@ open class TagView: UIView {
         build()
         updateViewAppearance()
     }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateCornerRadius()
-    }
-    
+
     /// :nodoc:
     required public init?(coder: NSCoder) { nil }
+
+    /// :nodoc:
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+
+        updateCornerRadius()
+    }
 }
 
 private extension TagView {
