@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "YTags",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v14)
     ],

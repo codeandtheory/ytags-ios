@@ -12,20 +12,20 @@ import YCoreUI
 
 /// A view that represents a `Tag`.
 open class TagView: UIView {
-    /// A label to display text.
-    public let titleLabel: TypographyLabel = {
-        let label = TypographyLabel(typography: .systemLabel)
-        label.numberOfLines = 0
-        return label
-    }()
-    
     /// An image view to display the optional icon.
     public let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+    /// A label to display text.
+    public let titleLabel: TypographyLabel = {
+        let label = TypographyLabel(typography: .systemLabel)
+        label.numberOfLines = 0
+        return label
+    }()
+    /// An optional close button.
+    public let closeButton = UIButton()
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -33,9 +33,13 @@ open class TagView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
-    
+
+    /// Close button delegate.
+    weak var delegate: TagViewCloseButtonDelegate?
     private var iconHeight: NSLayoutConstraint?
     private var iconWidth: NSLayoutConstraint?
+    private var closeButtonHeight: NSLayoutConstraint?
+    private var closeButtonWidth: NSLayoutConstraint?
         
     /// Appearance for `Tag`.
     public var appearance: TagView.Appearance {
@@ -66,18 +70,25 @@ open class TagView: UIView {
 
         updateCornerRadius()
     }
+    
+    /// Unit testing
+    internal func simulateTagDidClose() {
+        tagDidClose()
+    }
 }
 
 private extension TagView {
     func build() {
         buildViews()
         buildConstraints()
+        closeButton.addTarget(self, action: #selector(tagDidClose), for: .touchUpInside)
     }
     
     func buildViews() {
         addSubview(stackView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(closeButton)
     }
     
     func buildConstraints() {
@@ -93,6 +104,12 @@ private extension TagView {
         iconImageView.image = appearance.icon?.image
         iconImageView.isHidden = !appearance.hasIcon
         stackView.spacing = appearance.layout.gap
+        setupTagIcon()
+        setupCloseButton()
+        updateCornerRadius()
+    }
+    
+    func setupTagIcon() {
         if let iconSize = appearance.icon?.size,
            iconHeight == nil {
             let icon = iconImageView.constrainSize(iconSize)
@@ -102,10 +119,29 @@ private extension TagView {
             iconHeight?.constant = appearance.icon?.size.height ?? 0
             iconWidth?.constant = appearance.icon?.size.width ?? 0
         }
-        updateCornerRadius()
+    }
+    
+    func setupCloseButton() {
+        closeButton.isHidden = !appearance.hasCloseButton
+        closeButton.tintColor = appearance.closeButton?.tintColor
+        closeButton.setImage(appearance.closeButton?.image, for: .normal)
+        closeButton.accessibilityLabel = appearance.closeButton?.accessibilityLabel
+        if let iconSize = appearance.closeButton?.size,
+           closeButtonHeight == nil {
+            let icon = closeButton.constrainSize(iconSize)
+            closeButtonHeight = icon[.height]
+            closeButtonWidth = icon[.width]
+        } else {
+            closeButtonHeight?.constant = appearance.closeButton?.size.height ?? 0
+            closeButtonWidth?.constant = appearance.closeButton?.size.width ?? 0
+        }
     }
     
     func updateCornerRadius() {
         layer.cornerRadius = bounds.height * 0.5
+    }
+    
+    @objc func tagDidClose() {
+        delegate?.tagDidClose(self)
     }
 }
