@@ -9,6 +9,15 @@
 import XCTest
 @testable import YTags
 
+class SpyTagView: TagView {
+    var didCloseTapped = false
+    
+    override func simulateTagDidClose() {
+        super.simulateTagDidClose()
+        didCloseTapped = true
+    }
+}
+
 final class TagViewTests: XCTestCase {
     func test_initWithCoder() throws {
         let sut = TagView(coder: try makeCoder(for: UIView()))
@@ -62,6 +71,34 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.backgroundColor, backgroundColor)
         XCTAssertEqual(sut.layer.borderColor, borderColor.cgColor)
         XCTAssertEqual(sut.layer.borderWidth, borderWidth)
+    }
+    
+    func test_closeIcon() throws {
+        let sut = makeSUT(headerTitle: "title")
+        let image = try XCTUnwrap(UIImage(systemName: "xmark"))
+        let size = CGSize(width: 44, height: 44)
+
+        XCTAssertTrue(sut.iconImageView.isHidden)
+        sut.appearance = TagView.Appearance(
+            icon: (image, size),
+            closeButton: TagView.Appearance.CloseButton(image: image)
+        )
+        sut.layoutIfNeeded()
+        
+        XCTAssertFalse(sut.closeButton.isHidden)
+        XCTAssertEqual(sut.closeButton.imageView?.image, image)
+        XCTAssertFalse(sut.iconImageView.isHidden)
+        XCTAssertEqual(sut.iconImageView.image, image)
+        XCTAssertEqual(sut.iconImageView.bounds.width, size.width)
+    }
+    
+    func test_closeButtonTap() {
+        let sut = SpyTagView(title: "Testing")
+        XCTAssertFalse(sut.didCloseTapped)
+        
+        sut.simulateTagDidClose()
+        
+        XCTAssertTrue(sut.didCloseTapped)
     }
 }
 
