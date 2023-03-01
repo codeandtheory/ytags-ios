@@ -21,9 +21,9 @@ extension TagView {
         public var borderColor: UIColor
         /// border width. Default is `1`.
         public var borderWidth: CGFloat
-        /// Leading icon appearance. Default is 'nil` (no leading icon)
+        /// Leading icon appearance. Default is 'nil` (no leading icon).
         public var icon: LeadingIcon?
-        /// Close button appearance. Default is 'nil` (no close button)
+        /// Close button appearance. Default is 'nil` (no close button).
         public var closeButton: CloseButton?
         /// Tag view layout properties such as spacing between views. Default is `.default`.
         public var layout: Layout
@@ -33,18 +33,18 @@ extension TagView {
         /// Whether a close button is present or not.
         var hasCloseButton: Bool { closeButton != nil }
         
-        /// Default appearance
+        /// Default appearance.
         public static let `default` = Appearance()
         
         /// Initializes an `Appearance`.
         /// - Parameters:
-        ///   - title: Tuple consisting of `textColor` and `typography` for the title label.
-        ///   - backgroundColor: Background color.
-        ///   - borderColor: Border color.
-        ///   - borderWidth: Border width.
-        ///   - icon: Leading icon appearance.
-        ///   - layout: Tag view layout properties such as spacing between views.
-        ///   - closeButton: Close button appearance.
+        ///   - title: tuple consisting of `textColor` and `typography` for the title label.
+        ///   - backgroundColor: background color.
+        ///   - borderColor: border color.
+        ///   - borderWidth: border width.
+        ///   - icon: leading icon appearance.
+        ///   - layout: tag view layout properties such as spacing between views.
+        ///   - closeButton: close button appearance.
         init(
             title: (textColor: UIColor, typography: Typography) = (.label, .systemLabel),
             backgroundColor: UIColor = .clear,

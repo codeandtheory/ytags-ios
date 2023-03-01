@@ -17,7 +17,7 @@ extension TagView.Appearance {
         /// The minimum required horizontal spacing between icon and label. Default is `8.0`.
         public var gap: CGFloat
         
-        /// Default tag view layout
+        /// Default tag view layout.
         public static let `default` = Layout()
         
         /// Initializes a `Layout`.
