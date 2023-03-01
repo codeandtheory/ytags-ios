@@ -125,21 +125,29 @@ final class TagViewTests: XCTestCase {
     func test_rectangeShape() {
         let sut = makeSUT()
         sut.appearance.shape = .rectangle
+        sut.layoutIfNeeded()
         
-        XCTAssertEqual(sut.appearance.shape, TagShapes.rectangle)
+        XCTAssertEqual(sut.layer.cornerRadius, 0)
+        XCTAssertEqual(sut.appearance.shape, .rectangle)
     }
     
     func test_customShape() {
         let sut = makeSUT()
-        sut.appearance.shape = .roundRect(cornerRadius: 13)
+        let cornerRadius: CGFloat = 13
+        sut.appearance.shape = .roundRect(cornerRadius: cornerRadius)
         
-        XCTAssertEqual(sut.appearance.shape, .roundRect(cornerRadius: 13))
+        sut.layoutIfNeeded()
+        
+        XCTAssertEqual(sut.layer.cornerRadius, cornerRadius)
+        XCTAssertEqual(sut.appearance.shape, .roundRect(cornerRadius: cornerRadius))
     }
     
     func test_defaultShape() {
         let sut = makeSUT()
+        sut.layoutIfNeeded()
         
-        XCTAssertEqual(sut.appearance.shape, TagShapes.capsule)
+        XCTAssertEqual(sut.layer.cornerRadius, sut.bounds.height * 0.5)
+        XCTAssertEqual(sut.appearance.shape, .capsule)
     }
 }
 
