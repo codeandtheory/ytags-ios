@@ -1,5 +1,5 @@
 //
-//  TagViewCloseButtonTests.swift
+//  AppearanceCloseButtonTests.swift
 //  YTags
 //
 //  Created by Dev Karan on 28/02/23.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import YTags
 
-final class TagViewCloseButtonTests: XCTestCase {
+final class AppearanceCloseButtonTests: XCTestCase {
     func test_propertiesDefaultValue() {
         let sut = TagView.Appearance.CloseButton.default
         

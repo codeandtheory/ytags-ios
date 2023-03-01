@@ -39,6 +39,8 @@ open class TagView: UIView {
 
     /// Close button delegate.
     weak var delegate: TagViewCloseButtonDelegate?
+    
+    // Constraints
     private var iconHeight: NSLayoutConstraint?
     private var iconWidth: NSLayoutConstraint?
     private var closeButtonHeight: NSLayoutConstraint?
@@ -53,8 +55,8 @@ open class TagView: UIView {
     
     /// Initializes a tag view.
     /// - Parameters:
-    ///   - title: Title
-    ///   - appearance: Tag appearance
+    ///   - title: title.
+    ///   - appearance: tag appearance.
     public init(title: String, appearance: TagView.Appearance = .default) {
         self.titleLabel.text = title
         self.appearance = appearance
@@ -118,6 +120,7 @@ private extension TagView {
     func updateIcon() {
         iconImageView.image = appearance.icon?.image
         iconImageView.isHidden = !appearance.hasIcon
+        iconImageView.tintColor = appearance.icon?.tintColor
         
         if let iconSize = appearance.icon?.size,
            iconHeight == nil {

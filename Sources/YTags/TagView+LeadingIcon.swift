@@ -11,23 +11,20 @@ import UIKit
 extension TagView.Appearance {
     /// Tag view leading icon properties.
     public struct LeadingIcon {
-        /// Leading image. Default is `xmark`.
+        /// Leading image.
         var image: UIImage
         /// Size of leading image. Default is {23, 23}.
         var size: CGSize
         /// Tint color. Default is `.label`.
         var tintColor: UIColor
-        
-        /// Default leading icon.
-        public static let `default` = LeadingIcon()
-        
+                
         /// Initializes a leading icon.
         /// - Parameters:
-        ///   - image: Leading image.
+        ///   - image: leading image.
         ///   - size: size of leading image.
         ///   - tintColor: tint color.
         init(
-            image: UIImage = Images.xmark.image,
+            image: UIImage,
             size: CGSize = CGSize(width: 23, height: 23),
             tintColor: UIColor = .label
         ) {

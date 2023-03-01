@@ -23,7 +23,7 @@ extension TagView.Appearance {
         /// Default close button appearance.
         public static let `default` = CloseButton()
         
-        /// Initializes a close button
+        /// Initializes a close button.
         /// - Parameters:
         ///   - image: close button image.
         ///   - size: size of close button.

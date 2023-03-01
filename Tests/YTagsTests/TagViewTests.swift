@@ -22,10 +22,12 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.titleLabel.text, title)
     }
     
-    func test_init_withDefaultValuesWithIcon() {
+    func test_init_withDefaultValuesWithIcon() throws {
         let title = "Sample Tag"
+        let image = try XCTUnwrap(UIImage(systemName: "cube"))
+        
         let sut = makeSUT(
-            appearance: TagView.Appearance(icon: .default),
+            appearance: TagView.Appearance(icon: TagView.Appearance.LeadingIcon(image: image)),
             headerTitle: title
         )
         XCTAssertNotNil(sut)
