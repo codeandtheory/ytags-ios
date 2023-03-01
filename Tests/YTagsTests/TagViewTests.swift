@@ -20,6 +20,8 @@ final class TagViewTests: XCTestCase {
         let sut = makeSUT(headerTitle: title)
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut.titleLabel.text, title)
+        XCTAssertTrue(sut.iconImageView.isHidden)
+        XCTAssertTrue(sut.closeButton.isHidden)
     }
     
     func test_init_withDefaultValuesWithIcon() throws {
@@ -118,6 +120,26 @@ final class TagViewTests: XCTestCase {
         sut.appearance = .default
         
         XCTAssertTrue(sut.iconImageView.isHidden)
+    }
+
+    func test_rectangeShape() {
+        let sut = makeSUT()
+        sut.appearance.shape = .rectangle
+        
+        XCTAssertEqual(sut.appearance.shape, TagShapes.rectangle)
+    }
+    
+    func test_customShape() {
+        let sut = makeSUT()
+        sut.appearance.shape = .roundRect(cornerRadius: 13)
+        
+        XCTAssertEqual(sut.appearance.shape, .roundRect(cornerRadius: 13))
+    }
+    
+    func test_defaultShape() {
+        let sut = makeSUT()
+        
+        XCTAssertEqual(sut.appearance.shape, TagShapes.capsule)
     }
 }
 
