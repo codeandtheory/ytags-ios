@@ -14,13 +14,13 @@ final class TagViewCloseButtonTests: XCTestCase {
         let sut = TagView.Appearance.CloseButton.default
         
         XCTAssertEqual(sut.image, Images.xmark.image)
-        XCTAssertEqual(sut.size, CGSize(width: 22, height: 22))
+        XCTAssertEqual(sut.size, CGSize(width: 23, height: 23))
         XCTAssertEqual(sut.accessibilityLabel, TagView.Strings.closeButton.localized)
         XCTAssertEqual(sut.tintColor, .label)
     }
     
-    func test_propertiesWithCustomValues() {
-        let image = Images.circle.image
+    func test_propertiesWithCustomValues() throws {
+        let image = try XCTUnwrap(UIImage(systemName: "circle"))
         let size = CGSize(width: 33, height: 33)
         let accessibilityLabel = "testing"
         let tintColor = UIColor.red

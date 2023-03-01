@@ -22,43 +22,44 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.titleLabel.text, title)
     }
     
-    func test_init_withDefaultValuesWithIcon() throws {
+    func test_init_withDefaultValuesWithIcon() {
         let title = "Sample Tag"
-        let image = try XCTUnwrap(UIImage(systemName: "xmark"))
         let sut = makeSUT(
-            appearance: TagView.Appearance(icon: (image, CGSize(width: 22, height: 22))),
+            appearance: TagView.Appearance(icon: .default),
             headerTitle: title
         )
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut.titleLabel.text, title)
-        XCTAssertEqual(sut.iconImageView.image, image)
+        XCTAssertEqual(sut.iconImageView.image, sut.appearance.icon?.image)
     }
     
     func test_showIcon() throws {
         let sut = makeSUT(headerTitle: "title")
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
         let size = CGSize(width: 44, height: 44)
-
+        
         XCTAssertTrue(sut.iconImageView.isHidden)
-        sut.appearance = TagView.Appearance(icon: (image, size))
+        sut.appearance = TagView.Appearance(
+            icon: TagView.Appearance.LeadingIcon(image: image, size: size)
+        )
         sut.layoutIfNeeded()
-
+        
         XCTAssertFalse(sut.iconImageView.isHidden)
         XCTAssertEqual(sut.iconImageView.image, image)
         XCTAssertEqual(sut.iconImageView.bounds.width, size.width)
     }
-
+    
     func test_changeAppearance() throws {
         let sut = makeSUT(headerTitle: "title")
         let backgroundColor: UIColor = .red
         let borderColor: UIColor = .purple
         let borderWidth = CGFloat(Int.random(in: 1...8))
-
+        
         XCTAssertEqual(sut.backgroundColor, .clear)
         sut.appearance.backgroundColor = backgroundColor
         sut.appearance.borderColor = borderColor
         sut.appearance.borderWidth = borderWidth
-
+        
         XCTAssertEqual(sut.backgroundColor, backgroundColor)
         XCTAssertEqual(sut.layer.borderColor, borderColor.cgColor)
         XCTAssertEqual(sut.layer.borderWidth, borderWidth)
@@ -67,7 +68,7 @@ final class TagViewTests: XCTestCase {
     func test_closeButton() throws {
         let sut = makeSUT(headerTitle: "title")
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
-
+        
         XCTAssertTrue(sut.closeButton.isHidden)
         sut.appearance = TagView.Appearance(
             closeButton: TagView.Appearance.CloseButton(image: image)
@@ -85,6 +86,36 @@ final class TagViewTests: XCTestCase {
         sut.simulateTagDidClose()
         
         XCTAssertTrue(sut.didCloseTapped)
+    }
+    
+    func test_changeCloseButtonAppearance() throws {
+        let image = try XCTUnwrap(UIImage(systemName: "xmark"))
+        let appearance = TagView.Appearance(closeButton: TagView.Appearance.CloseButton(image: image))
+        
+        let sut = makeSUT(appearance: appearance)
+        
+        XCTAssertFalse(sut.closeButton.isHidden)
+        
+        sut.appearance = .default
+        
+        XCTAssertTrue(sut.closeButton.isHidden)
+    }
+    
+    func test_changeIconAppearance() throws {
+        let image = try XCTUnwrap(UIImage(systemName: "xmark"))
+        let size = CGSize(width: 44, height: 44)
+        
+        let appearance = TagView.Appearance(
+            icon: TagView.Appearance.LeadingIcon(image: image, size: size)
+        )
+        
+        let sut = makeSUT(appearance: appearance)
+        
+        XCTAssertFalse(sut.iconImageView.isHidden)
+        
+        sut.appearance = .default
+        
+        XCTAssertTrue(sut.iconImageView.isHidden)
     }
 }
 
