@@ -11,4 +11,3 @@ import Foundation
 internal protocol TagViewCloseButtonDelegate: AnyObject {
     func tagDidClose(_ tag: TagView)
 }
-

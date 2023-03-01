@@ -21,17 +21,17 @@ extension TagView {
         public var borderColor: UIColor
         /// border width. Default is `1`.
         public var borderWidth: CGFloat
-        /// A tuple consisting of 'Image` and 'size` for left icon.
+        /// A tuple consisting of 'Image` and 'size` for the leading icon.
         /// Default is `nil`.
         public var icon: (image: UIImage, size: CGSize)?
         /// Tag view layout properties such as spacing between views. Default is `.default`.
         public var layout: Layout
-        /// Close button. Default is 'nil`
+        /// Close button appearance. Default is 'nil` (no close button)
         public var closeButton: CloseButton?
         
-        /// Leading icon is present or not.
+        /// Whether a leading icon is present or not.
         var hasIcon: Bool { icon != nil }
-        /// Close button is present or not.
+        /// Whether a close button is present or not.
         var hasCloseButton: Bool { closeButton != nil }
         
         /// Default appearance
@@ -43,9 +43,9 @@ extension TagView {
         ///   - backgroundColor: Background color.
         ///   - borderColor: Border color.
         ///   - borderWidth: Border width.
-        ///   - icon: A tuple consisting of 'Image` and 'size` for left icon.
+        ///   - icon: A tuple consisting of 'Image` and 'size` for the leading icon.
         ///   - layout: Tag view layout properties such as spacing between views.
-        ///   - closeButton: Close button.
+        ///   - closeButton: Close button appearance.
         init(
             title: (textColor: UIColor, typography: Typography) = (.label, .systemLabel),
             backgroundColor: UIColor = .clear,
