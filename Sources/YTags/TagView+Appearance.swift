@@ -51,16 +51,16 @@ extension TagView {
             borderColor: UIColor = .label,
             borderWidth: CGFloat = 1,
             icon: LeadingIcon? = nil,
-            layout: Layout = .default,
-            closeButton: CloseButton? = nil
+            closeButton: CloseButton? = nil,
+            layout: Layout = .default
         ) {
             self.title = title
             self.backgroundColor = backgroundColor
             self.borderColor = borderColor
             self.borderWidth = borderWidth
             self.icon = icon
-            self.layout = layout
             self.closeButton = closeButton
+            self.layout = layout
         }
     }
 }
