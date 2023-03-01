@@ -9,15 +9,6 @@
 import XCTest
 @testable import YTags
 
-class SpyTagView: TagView {
-    var didCloseTapped = false
-    
-    override func simulateTagDidClose() {
-        super.simulateTagDidClose()
-        didCloseTapped = true
-    }
-}
-
 final class TagViewTests: XCTestCase {
     func test_initWithCoder() throws {
         let sut = TagView(coder: try makeCoder(for: UIView()))
@@ -73,23 +64,18 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.layer.borderWidth, borderWidth)
     }
     
-    func test_closeIcon() throws {
+    func test_closeButton() throws {
         let sut = makeSUT(headerTitle: "title")
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
-        let size = CGSize(width: 44, height: 44)
 
-        XCTAssertTrue(sut.iconImageView.isHidden)
+        XCTAssertTrue(sut.closeButton.isHidden)
         sut.appearance = TagView.Appearance(
-            icon: (image, size),
             closeButton: TagView.Appearance.CloseButton(image: image)
         )
         sut.layoutIfNeeded()
         
         XCTAssertFalse(sut.closeButton.isHidden)
         XCTAssertEqual(sut.closeButton.imageView?.image, image)
-        XCTAssertFalse(sut.iconImageView.isHidden)
-        XCTAssertEqual(sut.iconImageView.image, image)
-        XCTAssertEqual(sut.iconImageView.bounds.width, size.width)
     }
     
     func test_closeButtonTap() {
@@ -117,5 +103,14 @@ private extension TagViewTests {
     func makeCoder(for view: UIView) throws -> NSCoder {
         let data = try NSKeyedArchiver.archivedData(withRootObject: view, requiringSecureCoding: false)
         return try NSKeyedUnarchiver(forReadingFrom: data)
+    }
+}
+
+final class SpyTagView: TagView {
+    var didCloseTapped = false
+    
+    override func simulateTagDidClose() {
+        super.simulateTagDidClose()
+        didCloseTapped = true
     }
 }

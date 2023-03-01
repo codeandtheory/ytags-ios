@@ -11,8 +11,8 @@ import UIKit
 extension TagView.Appearance {
     /// Tag view close button properties.
     public struct CloseButton {
-        /// Button image. Default is SF symbol `xmark`.
-        var image: UIImage?
+        /// Button image. Default is `xmark`.
+        var image: UIImage
         /// Size of close button. Default is {22, 22}.
         var size: CGSize
         /// Accessibility label. Default is `Close`.
@@ -30,7 +30,7 @@ extension TagView.Appearance {
         ///   - accessibilityLabel: accessbility label.
         ///   - tintColor: tint color.
         init(
-            image: UIImage? = UIImage(systemName: "xmark"),
+            image: UIImage = Images.xmark.image,
             size: CGSize = CGSize(width: 22, height: 22),
             accessibilityLabel: String = TagView.Strings.closeButton.localized,
             tintColor: UIColor = .label

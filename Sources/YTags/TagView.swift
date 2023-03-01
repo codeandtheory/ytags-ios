@@ -18,14 +18,17 @@ open class TagView: UIView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     /// A label to display text.
     public let titleLabel: TypographyLabel = {
         let label = TypographyLabel(typography: .systemLabel)
         label.numberOfLines = 0
         return label
     }()
+    
     /// An optional close button.
     public let closeButton = UIButton()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -81,7 +84,7 @@ private extension TagView {
     func build() {
         buildViews()
         buildConstraints()
-        closeButton.addTarget(self, action: #selector(tagDidClose), for: .touchUpInside)
+        setupCloseButton()
     }
     
     func buildViews() {
@@ -95,6 +98,11 @@ private extension TagView {
         stackView.constrainEdges(with: appearance.layout.contentInset)
     }
     
+    func setupCloseButton() {
+        closeButton.addTarget(self, action: #selector(tagDidClose), for: .touchUpInside)
+        closeButton.accessibilityIdentifier = AccessibilityIdentifiers.buttonId
+    }
+    
     func updateViewAppearance() {
         backgroundColor = appearance.backgroundColor
         layer.borderColor = appearance.borderColor.cgColor
@@ -104,12 +112,12 @@ private extension TagView {
         iconImageView.image = appearance.icon?.image
         iconImageView.isHidden = !appearance.hasIcon
         stackView.spacing = appearance.layout.gap
-        setupTagIcon()
-        setupCloseButton()
+        updateIcon()
+        updateCloseButton()
         updateCornerRadius()
     }
     
-    func setupTagIcon() {
+    func updateIcon() {
         if let iconSize = appearance.icon?.size,
            iconHeight == nil {
             let icon = iconImageView.constrainSize(iconSize)
@@ -121,7 +129,7 @@ private extension TagView {
         }
     }
     
-    func setupCloseButton() {
+    func updateCloseButton() {
         closeButton.isHidden = !appearance.hasCloseButton
         closeButton.tintColor = appearance.closeButton?.tintColor
         closeButton.setImage(appearance.closeButton?.image, for: .normal)
