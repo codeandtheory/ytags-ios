@@ -73,7 +73,7 @@ open class TagView: UIView {
     open override func layoutSubviews() {
         super.layoutSubviews()
 
-        updateCornerRadius()
+        updateShape()
     }
     
     /// Unit testing
@@ -114,7 +114,7 @@ private extension TagView {
         stackView.spacing = appearance.layout.gap
         updateIcon()
         updateCloseButton()
-        updateCornerRadius()
+        updateShape()
     }
     
     func updateIcon() {
@@ -150,8 +150,15 @@ private extension TagView {
         }
     }
     
-    func updateCornerRadius() {
-        layer.cornerRadius = bounds.height * 0.5
+    func updateShape() {
+        switch appearance.shape {
+        case .capsule:
+            layer.cornerRadius = bounds.height * 0.5
+        case .rectangle:
+            layer.cornerRadius = 0
+        case .roundRect(let radius):
+            layer.cornerRadius = radius
+        }
     }
     
     @objc func tagDidClose() {

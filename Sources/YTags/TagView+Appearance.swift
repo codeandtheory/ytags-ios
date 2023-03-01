@@ -27,6 +27,8 @@ extension TagView {
         public var closeButton: CloseButton?
         /// Tag view layout properties such as spacing between views. Default is `.default`.
         public var layout: Layout
+        /// Tag view shapes. Default is `.capsule`.
+        public var shape: TagShapes
         
         /// Whether a leading icon is present or not.
         var hasIcon: Bool { icon != nil }
@@ -43,8 +45,9 @@ extension TagView {
         ///   - borderColor: border color.
         ///   - borderWidth: border width.
         ///   - icon: leading icon appearance.
-        ///   - layout: tag view layout properties such as spacing between views.
         ///   - closeButton: close button appearance.
+        ///   - shape: Tag view shapes.
+        ///   - layout: tag view layout properties such as spacing between views.
         init(
             title: (textColor: UIColor, typography: Typography) = (.label, .systemLabel),
             backgroundColor: UIColor = .clear,
@@ -52,6 +55,7 @@ extension TagView {
             borderWidth: CGFloat = 1,
             icon: LeadingIcon? = nil,
             closeButton: CloseButton? = nil,
+            shape: TagShapes = .capsule,
             layout: Layout = .default
         ) {
             self.title = title
@@ -60,6 +64,7 @@ extension TagView {
             self.borderWidth = borderWidth
             self.icon = icon
             self.closeButton = closeButton
+            self.shape = shape
             self.layout = layout
         }
     }
