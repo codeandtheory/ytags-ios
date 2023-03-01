@@ -6,13 +6,16 @@
 //  Copyright © 2023 Y Media Labs. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import YCoreUI
 
 /// Collection of Images
-enum Images: String, CaseIterable, ImageAsset {
+enum Images: String, CaseIterable {
     case xmark
-    case circle
+}
 
-    static var bundle: Bundle { .module }
+extension Images: ImageAsset {
+    public func loadImage() -> UIImage? {
+        UIImage(systemName: rawValue)
+    }
 }

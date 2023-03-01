@@ -109,8 +109,6 @@ private extension TagView {
         layer.borderWidth = appearance.borderWidth
         titleLabel.textColor = appearance.title.textColor
         titleLabel.typography = appearance.title.typography
-        iconImageView.image = appearance.icon?.image
-        iconImageView.isHidden = !appearance.hasIcon
         stackView.spacing = appearance.layout.gap
         updateIcon()
         updateCloseButton()
@@ -118,6 +116,9 @@ private extension TagView {
     }
     
     func updateIcon() {
+        iconImageView.image = appearance.icon?.image
+        iconImageView.isHidden = !appearance.hasIcon
+        
         if let iconSize = appearance.icon?.size,
            iconHeight == nil {
             let icon = iconImageView.constrainSize(iconSize)
@@ -134,6 +135,7 @@ private extension TagView {
         closeButton.tintColor = appearance.closeButton?.tintColor
         closeButton.setImage(appearance.closeButton?.image, for: .normal)
         closeButton.accessibilityLabel = appearance.closeButton?.accessibilityLabel
+        
         if let iconSize = appearance.closeButton?.size,
            closeButtonHeight == nil {
             let icon = closeButton.constrainSize(iconSize)
