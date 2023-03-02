@@ -11,11 +11,11 @@ import UIKit
 extension TagView.Appearance {
     /// Tag shape.
     public enum Shape: Equatable {
-        /// Corner radius will be `0`.
+        /// Rectangle.
         case rectangle
-        /// Corner radius will be the value we are passing.
+        /// Rounded rectangle.
         case roundRect(cornerRadius: CGFloat)
-        /// Corner radius will be half the height of view.
+        /// Capsule.
         case capsule
     }
 }
