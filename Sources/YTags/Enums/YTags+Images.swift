@@ -10,13 +10,13 @@ import UIKit
 import YCoreUI
 
 /// Collection of Images
-public enum Images: String, CaseIterable {
+enum Images: String, CaseIterable {
     /// xmark
     case xmark
 }
 
 extension Images: ImageAsset {
-    public func loadImage() -> UIImage? {
+    func loadImage() -> UIImage? {
         UIImage(systemName: rawValue)
     }
 }
