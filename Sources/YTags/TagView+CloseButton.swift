@@ -29,7 +29,7 @@ extension TagView.Appearance {
         ///   - size: size of close button.
         ///   - accessibilityLabel: accessbility label.
         ///   - tintColor: tint color.
-        init(
+        public init(
             image: UIImage = Images.xmark.image,
             size: CGSize = CGSize(width: 23, height: 23),
             accessibilityLabel label: String = TagView.Strings.closeButton.localized,

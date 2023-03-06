@@ -10,7 +10,7 @@ import UIKit
 import YCoreUI
 
 /// Collection of Images
-enum Images: String, CaseIterable {
+public enum Images: String, CaseIterable {
     case xmark
 }
 
