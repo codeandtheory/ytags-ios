@@ -13,6 +13,152 @@ Documentation is automatically generated from source code comments and rendered 
 Usage
 ----------
 
+### Initializers
+Tag view can be initialized with a title and an appearance(optional). Appearance parameter allows you to fully customize the tag appearance. You can also update the tag’s appearance at any time.
+
+```swift
+init(
+    title: String,
+    appearance: TagView.Appearance = .default
+)
+```
+
+#### Simple use case 1: Text only tag with default appearance.
+
+```swift
+import YTags
+
+final class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addTagView()
+    }
+    
+    func addTagView() {
+        let tagView = TagView(title: "Hello World!!")
+        view.addSubview(tagView)
+    }
+}
+```
+
+#### Simple use case 2: Text only tag with custom appearance.
+
+```swift
+import YTags
+
+final class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addTagView()
+    }
+    
+    func addTagView() {
+        let tagView = TagView(
+            title: "Hello world!",
+            appearance: TagView.Appearance(
+                backgroundColor: .blue,
+                borderColor: .black,
+                shape: .rectangle
+            )
+        )
+        view.addSubview(tagView)
+    }
+}
+```
+
+#### Simple use case 3: Tag with icon.
+
+```swift
+import YTags
+
+final class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addTagView()
+    }
+    
+    func addTagView() {
+        guard let cube = UIImage(systemName: "cube") else { return }
+        let tagView = TagView(
+            title: "Hello world!",
+            appearance: TagView.Appearance(
+                icon: TagView.Appearance.LeadingIcon(image: cube)
+            )
+        )
+        view.addSubview(tagView)
+    }
+}
+```
+
+#### Simple use case 4: Tag with close button.
+
+```swift
+import YTags
+
+final class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addTagView()
+    }
+    
+    func addTagView() {
+        let tagView = TagView(
+            title: "Hello world!",
+            appearance: TagView.Appearance(
+                closeButton: TagView.Appearance.CloseButton()
+            )
+        )
+        view.addSubview(tagView)
+    }
+}
+```
+
+### Customization
+`TagView` has an `appearance` property of type `Appearance`.
+
+`Appearance` lets you customize the tag view appearance. We can customize the appearance of the border color, leading icon, close icon, background color etc.
+
+```swift
+public struct Appearance {
+    /// A tuple consisting of `textColor` and `typography` for the title label.
+    /// Default is `(.label, .systemLabel)`.
+    public var title: (textColor: UIColor, typography: Typography)
+    /// Tag view background color. Default is `.clear`.
+    public var backgroundColor: UIColor
+    /// Border color. Default is `.label`.
+    public var borderColor: UIColor
+    /// border width. Default is `1`.
+    public var borderWidth: CGFloat
+    /// Leading icon appearance. Default is 'nil` (no leading icon).
+    public var icon: LeadingIcon?
+    /// Close button appearance. Default is 'nil` (no close button).
+    public var closeButton: CloseButton?
+    /// Tag view layout properties such as spacing between views. Default is `.default`.
+    public var layout: Layout
+    /// Tag shape. Default is `.capsule`.
+    public var shape: Shape
+    /// Whether a leading icon is present or not.
+    var hasIcon: Bool { icon != nil }
+    /// Whether a close button is present or not.
+    var hasCloseButton: Bool { closeButton != nil }
+}
+```
+
+**Update or customize appearance**
+
+```swift
+// Declare a tag view.
+let tagView = TagView(title: "Hello World!!")
+
+// Change background color, border color, shape
+tagView.appearance.backgroundColor = .red
+tagView.appearance.borderColor = .black
+tagView.appearance.shape = .rectangle
+
+// Tag view added to subview.
+view.addSubview(tagView)
+```
+
 Installation
 ----------
 
