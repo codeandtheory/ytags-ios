@@ -23,7 +23,7 @@ extension TagView.Appearance {
         ///   - image: leading image.
         ///   - size: size of leading image.
         ///   - tintColor: tint color.
-        init(
+        public init(
             image: UIImage,
             size: CGSize = CGSize(width: 23, height: 23),
             tintColor: UIColor = .label

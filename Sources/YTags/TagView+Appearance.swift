@@ -48,7 +48,7 @@ extension TagView {
         ///   - closeButton: close button appearance.
         ///   - shape: Tag shape.
         ///   - layout: tag view layout properties such as spacing between views.
-        init(
+        public init(
             title: (textColor: UIColor, typography: Typography) = (.label, .systemLabel),
             backgroundColor: UIColor = .clear,
             borderColor: UIColor = .label,
