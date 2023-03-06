@@ -23,6 +23,12 @@ extension TagView.Appearance {
         /// Default close button appearance.
         public static let `default` = CloseButton()
         
+        /// Default image
+        public static let defaultImage: UIImage = Images.xmark.image
+        
+        /// Default accessibility label
+        public static let defaultAccessibilityLabel: String = TagView.Strings.closeButton.localized
+        
         /// Initializes a close button.
         /// - Parameters:
         ///   - image: close button image.
@@ -30,9 +36,9 @@ extension TagView.Appearance {
         ///   - accessibilityLabel: accessbility label.
         ///   - tintColor: tint color.
         public init(
-            image: UIImage = Images.xmark.image,
+            image: UIImage = defaultImage,
             size: CGSize = CGSize(width: 23, height: 23),
-            accessibilityLabel label: String = TagView.Strings.closeButton.localized,
+            accessibilityLabel label: String = defaultAccessibilityLabel,
             tintColor: UIColor = .label
         ) {
             self.image = image
