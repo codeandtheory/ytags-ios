@@ -8,5 +8,6 @@
 
 /// Accessibility Identifiers
 enum AccessibilityIdentifiers {
+    // Button ID
     static let buttonId = "tag.button.close"
 }

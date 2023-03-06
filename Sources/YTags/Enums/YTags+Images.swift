@@ -11,6 +11,7 @@ import YCoreUI
 
 /// Collection of Images
 public enum Images: String, CaseIterable {
+    /// xmark
     case xmark
 }
 

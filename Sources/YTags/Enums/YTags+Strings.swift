@@ -10,9 +10,12 @@ import Foundation
 import YCoreUI
 
 extension TagView {
+    /// Accessibility strings
     public enum Strings: String, Localizable, CaseIterable {
+        /// CloseButton
         case closeButton = "Close_Button"
         
+        /// Bundle
         public static var bundle: Bundle { .module }
     }
 }
