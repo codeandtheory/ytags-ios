@@ -69,11 +69,11 @@ extension TagView {
         }
 
         /// Returns a border width to use
-        /// - Parameter compatibleWith: trait collection to consider
+        /// - Parameter traitCollection: trait collection to consider
         /// - Returns: the border width to use, adjusted for the current trait collection
-        public func borderWidth(compatibleWith: UITraitCollection?) -> CGFloat {
+        public func borderWidth(compatibleWith traitCollection: UITraitCollection?) -> CGFloat {
             let isBoldText: Bool
-            if let traitCollection = compatibleWith {
+            if let traitCollection = traitCollection {
                 isBoldText = traitCollection.legibilityWeight == .bold
             } else {
                 isBoldText = UIAccessibility.isBoldTextEnabled
