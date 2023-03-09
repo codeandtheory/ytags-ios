@@ -23,4 +23,15 @@ final class TagViewAppearanceTests: XCTestCase {
         XCTAssertNil(sut.icon)
         XCTAssertFalse(sut.hasIcon)
     }
+
+    func test_borderWidth() {
+        let border = CGFloat(Int.random(in: 1...4))
+        let sut = TagView.Appearance(borderWidth: border)
+
+        XCTAssertEqual(sut.borderWidth(compatibleWith: UITraitCollection(legibilityWeight: .regular)), border)
+        XCTAssertEqual(sut.borderWidth(compatibleWith: UITraitCollection(legibilityWeight: .bold)), border + 1)
+
+        let isBold = UIAccessibility.isBoldTextEnabled
+        XCTAssertEqual(sut.borderWidth(compatibleWith: nil), isBold ? border + 1 : border)
+    }
 }

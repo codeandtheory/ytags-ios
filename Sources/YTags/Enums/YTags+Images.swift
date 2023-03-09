@@ -17,6 +17,7 @@ enum Images: String, CaseIterable {
 
 extension Images: ImageAsset {
     func loadImage() -> UIImage? {
-        UIImage(systemName: rawValue)
+        let config = UIImage.SymbolConfiguration(textStyle: .callout)
+        return UIImage(systemName: rawValue, withConfiguration: config)
     }
 }

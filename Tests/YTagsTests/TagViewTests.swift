@@ -40,17 +40,15 @@ final class TagViewTests: XCTestCase {
     func test_showIcon() throws {
         let sut = makeSUT(headerTitle: "title")
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
-        let size = CGSize(width: 44, height: 44)
-        
+
         XCTAssertTrue(sut.iconImageView.isHidden)
         sut.appearance = TagView.Appearance(
-            icon: TagView.Appearance.LeadingIcon(image: image, size: size)
+            icon: TagView.Appearance.LeadingIcon(image: image)
         )
         sut.layoutIfNeeded()
         
         XCTAssertFalse(sut.iconImageView.isHidden)
         XCTAssertEqual(sut.iconImageView.image, image)
-        XCTAssertEqual(sut.iconImageView.bounds.width, size.width)
     }
     
     func test_changeAppearance() throws {
@@ -107,10 +105,9 @@ final class TagViewTests: XCTestCase {
     
     func test_changeIconAppearance() throws {
         let image = try XCTUnwrap(UIImage(systemName: "xmark"))
-        let size = CGSize(width: 44, height: 44)
-        
+
         let appearance = TagView.Appearance(
-            icon: TagView.Appearance.LeadingIcon(image: image, size: size)
+            icon: TagView.Appearance.LeadingIcon(image: image)
         )
         
         let sut = makeSUT(appearance: appearance)
@@ -149,6 +146,21 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.layer.cornerRadius, sut.bounds.height * 0.5)
         XCTAssertEqual(sut.appearance.shape, .capsule)
     }
+
+    func test_increaseLegibilityWeight_thickensBorder() {
+        // Given
+        let sut = makeSUT()
+        let oldBorderWidth = sut.layer.borderWidth
+        let (parent, child) = makeNestedViewControllers(subview: sut)
+
+        // When
+        let traits = UITraitCollection(legibilityWeight: .bold)
+        parent.setOverrideTraitCollection(traits, forChild: child)
+        sut.traitCollectionDidChange(traits)
+
+        // Then
+        XCTAssertEqual(sut.layer.borderWidth, oldBorderWidth + 1)
+    }
 }
 
 private extension TagViewTests {
@@ -159,13 +171,38 @@ private extension TagViewTests {
         line: UInt = #line
     ) -> TagView {
         let sut = TagView(title: headerTitle, appearance: appearance)
-        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeak(sut, file: file, line: line)
         return sut
     }
     
     func makeCoder(for view: UIView) throws -> NSCoder {
         let data = try NSKeyedArchiver.archivedData(withRootObject: view, requiringSecureCoding: false)
         return try NSKeyedUnarchiver(forReadingFrom: data)
+    }
+
+    /// Create nested view controllers containing the view to be tested so that we can override traits
+    func makeNestedViewControllers(
+        subview: UIView,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (parent: UIViewController, child: UIViewController) {
+        let parent = UIViewController()
+        let child = UIViewController()
+        parent.addChild(child)
+        parent.view.addSubview(child.view)
+
+        // constrain child controller view to parent
+        child.view.constrainEdges()
+
+        child.view.addSubview(subview)
+
+        // constrain subview to child view center
+        subview.constrainCenter()
+
+        trackForMemoryLeak(parent, file: file, line: line)
+        trackForMemoryLeak(child, file: file, line: line)
+
+        return (parent, child)
     }
 }
 

@@ -16,22 +16,18 @@ final class AppearanceLeadingIconTests: XCTestCase {
         let sut = TagView.Appearance.LeadingIcon(image: image)
         
         XCTAssertEqual(sut.image, image)
-        XCTAssertEqual(sut.size, CGSize(width: 23, height: 23))
         XCTAssertEqual(sut.tintColor, .label)
     }
     
     func test_propertiesWithCustomValues() throws {
         let image = try XCTUnwrap(UIImage(systemName: "circle"))
-        let size = CGSize(width: 33, height: 33)
         let tintColor = UIColor.red
         
         let sut = TagView.Appearance.LeadingIcon(
             image: image,
-            size: size,
             tintColor: tintColor
         )
         XCTAssertEqual(sut.image, image)
-        XCTAssertEqual(sut.size, size)
         XCTAssertEqual(sut.tintColor, tintColor)
     }
 }
