@@ -1,5 +1,5 @@
 //
-//  TagViewCloseButtonDelegate.swift
+//  TagViewDelegate.swift
 //  YTags
 //
 //  Created by Dev Karan on 28/02/23.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-internal protocol TagViewCloseButtonDelegate: AnyObject {
+internal protocol TagViewDelegate: AnyObject {
     func tagDidClose(_ tag: TagView)
 }

@@ -13,8 +13,6 @@ extension TagView.Appearance {
     public struct CloseButton {
         /// Button image. Default is `xmark`.
         var image: UIImage
-        /// Size of close button. Default is {23, 23}.
-        var size: CGSize
         /// Accessibility label. Default is `Close`.
         var accessibilityLabel: String
         /// Tint color. Default is `.label`.
@@ -32,17 +30,14 @@ extension TagView.Appearance {
         /// Initializes a close button.
         /// - Parameters:
         ///   - image: close button image.
-        ///   - size: size of close button.
         ///   - accessibilityLabel: accessbility label.
         ///   - tintColor: tint color.
         public init(
             image: UIImage = defaultImage,
-            size: CGSize = CGSize(width: 23, height: 23),
             accessibilityLabel label: String = defaultAccessibilityLabel,
             tintColor: UIColor = .label
         ) {
             self.image = image
-            self.size = size
             self.accessibilityLabel = label.isEmpty ? TagView.Strings.closeButton.localized : label
             self.tintColor = tintColor
         }

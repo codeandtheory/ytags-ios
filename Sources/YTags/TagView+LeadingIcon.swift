@@ -13,23 +13,18 @@ extension TagView.Appearance {
     public struct LeadingIcon {
         /// Leading image.
         var image: UIImage
-        /// Size of leading image. Default is {23, 23}.
-        var size: CGSize
         /// Tint color. Default is `.label`.
         var tintColor: UIColor
                 
         /// Initializes a leading icon.
         /// - Parameters:
         ///   - image: leading image.
-        ///   - size: size of leading image.
         ///   - tintColor: tint color.
         public init(
             image: UIImage,
-            size: CGSize = CGSize(width: 23, height: 23),
             tintColor: UIColor = .label
         ) {
             self.image = image
-            self.size = size
             self.tintColor = tintColor
         }
     }

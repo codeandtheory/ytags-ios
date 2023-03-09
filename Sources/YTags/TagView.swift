@@ -16,6 +16,7 @@ open class TagView: UIView {
     public let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.constrainAspectRatio(1)
         return imageView
     }()
     
@@ -27,8 +28,14 @@ open class TagView: UIView {
     }()
     
     /// An optional close button.
-    public let closeButton = UIButton()
-    
+    let closeButton: UIButton = {
+        let button = UIButton()
+        button.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.constrainAspectRatio(1)
+        return button
+    }()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -38,14 +45,12 @@ open class TagView: UIView {
     }()
 
     /// Close button delegate.
-    weak var delegate: TagViewCloseButtonDelegate?
+    weak var delegate: TagViewDelegate?
     
     // Constraints
     private var iconHeight: NSLayoutConstraint?
-    private var iconWidth: NSLayoutConstraint?
     private var closeButtonHeight: NSLayoutConstraint?
-    private var closeButtonWidth: NSLayoutConstraint?
-        
+
     /// Appearance for `Tag`.
     public var appearance: TagView.Appearance {
         didSet {
@@ -75,7 +80,15 @@ open class TagView: UIView {
 
         updateShape()
     }
-    
+
+    /// Adjusts image sizes and border width based on trait changes
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.hasDifferentFontAppearance(comparedTo: previousTraitCollection) {
+            updateViewAppearance()
+        }
+    }
+
     /// Unit testing
     internal func simulateTagDidClose() {
         tagDidClose()
@@ -98,6 +111,18 @@ private extension TagView {
     
     func buildConstraints() {
         stackView.constrainEdges(with: appearance.layout.contentInset)
+
+        // The icons (leading and trailing) shouldn't exceed the scaled line height of the label
+        iconHeight = iconImageView.constrain(
+            .heightAnchor,
+            relatedBy: .lessThanOrEqual,
+            constant: appearance.title.typography.lineHeight
+        )
+        closeButtonHeight = closeButton.constrain(
+            .heightAnchor,
+            relatedBy: .lessThanOrEqual,
+            constant: appearance.title.typography.lineHeight
+        )
     }
     
     func setupCloseButton() {
@@ -108,29 +133,20 @@ private extension TagView {
     func updateViewAppearance() {
         backgroundColor = appearance.backgroundColor
         layer.borderColor = appearance.borderColor.cgColor
-        layer.borderWidth = appearance.borderWidth
+        layer.borderWidth = appearance.borderWidth(compatibleWith: traitCollection)
         titleLabel.textColor = appearance.title.textColor
         titleLabel.typography = appearance.title.typography
         stackView.spacing = appearance.layout.gap
         updateIcon()
         updateCloseButton()
         updateShape()
+        updateHeights()
     }
     
     func updateIcon() {
         iconImageView.image = appearance.icon?.image
         iconImageView.isHidden = !appearance.hasIcon
         iconImageView.tintColor = appearance.icon?.tintColor
-        
-        if let iconSize = appearance.icon?.size,
-           iconHeight == nil {
-            let icon = iconImageView.constrainSize(iconSize)
-            iconHeight = icon[.height]
-            iconWidth = icon[.width]
-        } else {
-            iconHeight?.constant = appearance.icon?.size.height ?? 0
-            iconWidth?.constant = appearance.icon?.size.width ?? 0
-        }
     }
     
     func updateCloseButton() {
@@ -138,16 +154,12 @@ private extension TagView {
         closeButton.tintColor = appearance.closeButton?.tintColor
         closeButton.setImage(appearance.closeButton?.image, for: .normal)
         closeButton.accessibilityLabel = appearance.closeButton?.accessibilityLabel
-        
-        if let iconSize = appearance.closeButton?.size,
-           closeButtonHeight == nil {
-            let icon = closeButton.constrainSize(iconSize)
-            closeButtonHeight = icon[.height]
-            closeButtonWidth = icon[.width]
-        } else {
-            closeButtonHeight?.constant = appearance.closeButton?.size.height ?? 0
-            closeButtonWidth?.constant = appearance.closeButton?.size.width ?? 0
-        }
+    }
+
+    func updateHeights() {
+        let layout = appearance.title.typography.generateLayout(compatibleWith: traitCollection)
+        iconHeight?.constant = layout.lineHeight
+        closeButtonHeight?.constant = layout.lineHeight
     }
     
     func updateShape() {
