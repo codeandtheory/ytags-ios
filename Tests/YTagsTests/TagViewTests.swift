@@ -161,6 +161,18 @@ final class TagViewTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.layer.borderWidth, oldBorderWidth + 1)
     }
+
+    func test_accessibilityElements() {
+        // Given
+        let sut = makeSUT()
+        XCTAssertEqual(sut.accessibilityElements?.count, 1)
+
+        // When
+        sut.appearance = TagView.Appearance(closeButton: .default)
+
+        // Then
+        XCTAssertEqual(sut.accessibilityElements?.count, 2)
+    }
 }
 
 private extension TagViewTests {

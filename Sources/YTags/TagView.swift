@@ -141,6 +141,7 @@ private extension TagView {
         updateCloseButton()
         updateShape()
         updateHeights()
+        updateAccessibilityElements()
     }
     
     func updateIcon() {
@@ -171,6 +172,16 @@ private extension TagView {
         case .roundRect(let radius):
             layer.cornerRadius = radius
         }
+    }
+
+    func updateAccessibilityElements() {
+        var accessibilityElements: [Any]? = [titleLabel]
+
+        if appearance.hasCloseButton {
+            accessibilityElements?.append(closeButton)
+        }
+
+        self.accessibilityElements = accessibilityElements
     }
     
     @objc func tagDidClose() {
