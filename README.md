@@ -1,6 +1,10 @@
 ![Y—Tags](https://user-images.githubusercontent.com/1037520/220168883-0452b4bb-bd1c-41cd-b29f-207eb93fa25b.jpeg)
 _Accessible and customizable tag user interface elements for iOS._
 
+This framework includes tag components (some times referred to as pills) that are fully customizable and support Dynamic Type and the Accessibility Bold Text feature (tag borders also become bold together with text). The default appearance supports Dark Mode and is WCAG 2.00 AAA compliant (when specifying custom colors it is up to the caller to provide support for Dark and Increased Contrast Modes).
+
+![Y—Tags demo animation](https://user-images.githubusercontent.com/1037520/224697264-6ffb00fb-1ab7-47a0-963f-357da96e37d3.gif)
+
 Licensing
 ----------
 Y—Tags is licensed under the [Apache 2.0 license](LICENSE).
@@ -13,8 +17,10 @@ Documentation is automatically generated from source code comments and rendered 
 Usage
 ----------
 
+![Tag view Components](https://user-images.githubusercontent.com/1037520/224698467-b479aed5-ad96-49fe-8a09-c23308c4b346.jpeg)
+
 ### Initializers
-Tag view can be initialized with a title and an appearance(optional). Appearance parameter allows you to fully customize the tag appearance. You can also update the tag’s appearance at any time.
+Tag view can be initialized with a title and an appearance(optional). The appearance parameter allows you to fully customize the tag (including whether it includes a leading icon and/or a trailing close button). You can also update the tag’s appearance at any time.
 
 ```swift
 public init(
@@ -107,6 +113,11 @@ tagView.appearance.borderColor = .black
 tagView.appearance.shape = .rectangle
 tagView.appearance.title =  (.secondaryLabel, .smallSystem)
 ```
+
+Dependencies
+----------
+
+Y—Tags depends upon our [Y—CoreUI](https://github.com/yml-org/ycoreui) and [Y—MatterType](https://github.com/yml-org/ymattertype) frameworks (both also open source and Apache 2.0 licensed).
 
 Installation
 ----------
