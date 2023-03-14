@@ -1,4 +1,5 @@
 ![Y—Tags](https://user-images.githubusercontent.com/1037520/220168883-0452b4bb-bd1c-41cd-b29f-207eb93fa25b.jpeg)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyml-org%2Fytags-ios%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/yml-org/ytags-ios) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyml-org%2Fytags-ios%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yml-org/ytags-ios)  
 _Accessible and customizable tag user interface elements for iOS._
 
 This framework includes tag components (some times referred to as pills) that are fully customizable and support Dynamic Type and the Accessibility Bold Text feature (tag borders also become bold together with text). The default appearance supports Dark Mode and is WCAG 2.00 AAA compliant (when specifying custom colors it is up to the caller to provide support for Dark and Increased Contrast Modes).
