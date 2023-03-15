@@ -86,7 +86,8 @@ open class TagView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         if traitCollection.hasDifferentFontAppearance(comparedTo: previousTraitCollection) {
             updateViewAppearance()
-        } else if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+        }
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             updateBorderColor()
         }
     }
