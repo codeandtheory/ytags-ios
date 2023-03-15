@@ -165,16 +165,27 @@ final class TagViewTests: XCTestCase {
     func test_updatedColorMode_changesBorderColor() {
         // Given
         let sut = makeSUT()
-        let borderColor = sut.layer.borderColor
+        let darkBorderColor  = UIColor.white
+        let lightBorderColor = UIColor.black
         let (parent, child) = makeNestedViewControllers(subview: sut)
         
         // When
-        let traits = UITraitCollection(userInterfaceStyle: .dark)
-        parent.setOverrideTraitCollection(traits, forChild: child)
-        sut.traitCollectionDidChange(traits)
+        let traitDark = UITraitCollection(userInterfaceStyle: .dark)
+        parent.setOverrideTraitCollection(traitDark, forChild: child)
+        sut.traitCollectionDidChange(traitDark)
+        sut.appearance.borderColor = darkBorderColor
         
         // Then
-        XCTAssertEqual(sut.layer.borderColor, borderColor)
+        XCTAssertEqual(sut.layer.borderColor, darkBorderColor.cgColor)
+        
+        // When
+        let traitLight = UITraitCollection(userInterfaceStyle: .light)
+        parent.setOverrideTraitCollection(traitLight, forChild: child)
+        sut.traitCollectionDidChange(traitLight)
+        sut.appearance.borderColor = lightBorderColor
+        
+        // Then
+        XCTAssertEqual(sut.layer.borderColor, lightBorderColor.cgColor)
     }
 
     func test_accessibilityElements() {
