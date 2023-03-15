@@ -162,7 +162,7 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.layer.borderWidth, oldBorderWidth + 1)
     }
     
-    func test_changeColorMode() {
+    func test_updatedColorMode_changesBorderColor() {
         // Given
         let sut = makeSUT()
         let borderColor = sut.layer.borderColor
