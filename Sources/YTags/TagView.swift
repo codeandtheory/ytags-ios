@@ -86,6 +86,8 @@ open class TagView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         if traitCollection.hasDifferentFontAppearance(comparedTo: previousTraitCollection) {
             updateViewAppearance()
+        } else if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateBorderColor()
         }
     }
 
@@ -132,16 +134,20 @@ private extension TagView {
     
     func updateViewAppearance() {
         backgroundColor = appearance.backgroundColor
-        layer.borderColor = appearance.borderColor.cgColor
         layer.borderWidth = appearance.borderWidth(compatibleWith: traitCollection)
         titleLabel.textColor = appearance.title.textColor
         titleLabel.typography = appearance.title.typography
         stackView.spacing = appearance.layout.gap
+        updateBorderColor()
         updateIcon()
         updateCloseButton()
         updateShape()
         updateHeights()
         updateAccessibilityElements()
+    }
+    
+    func updateBorderColor() {
+        layer.borderColor = appearance.borderColor.cgColor
     }
     
     func updateIcon() {
