@@ -17,5 +17,7 @@ extension TagView.Appearance {
         case roundRect(cornerRadius: CGFloat)
         /// Capsule.
         case capsule
+        /// Scaled round rect.
+        case scaledRoundRect(cornerRadius: CGFloat)
     }
 }
