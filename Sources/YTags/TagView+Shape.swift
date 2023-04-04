@@ -9,15 +9,15 @@
 import UIKit
 
 extension TagView.Appearance {
-    /// Tag shape.
+    /// Tag shape
     public enum Shape: Equatable {
-        /// Rectangle.
+        /// Rectangle
         case rectangle
-        /// Rounded rectangle.
+        /// Rounded rectangle
         case roundRect(cornerRadius: CGFloat)
-        /// Capsule.
-        case capsule
-        /// Scaled round rect.
+        /// Scaled round rect
         case scaledRoundRect(cornerRadius: CGFloat)
+        /// Capsule
+        case capsule
     }
 }
