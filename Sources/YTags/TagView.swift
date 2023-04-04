@@ -178,6 +178,9 @@ private extension TagView {
             layer.cornerRadius = 0
         case .roundRect(let radius):
             layer.cornerRadius = radius
+        case .scaledRoundRect(let radius):
+            let scaledFactor = titleLabel.layout.lineHeight / titleLabel.typography.lineHeight
+            layer.cornerRadius = radius * scaledFactor
         }
     }
 
