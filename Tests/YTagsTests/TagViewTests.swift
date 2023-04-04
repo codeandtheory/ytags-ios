@@ -130,7 +130,7 @@ final class TagViewTests: XCTestCase {
     
     func test_customShape() {
         let sut = makeSUT()
-        let cornerRadius: CGFloat = 13
+        let cornerRadius = CGFloat(Int.random(in: 1...13))
         sut.appearance.shape = .roundRect(cornerRadius: cornerRadius)
         
         sut.layoutIfNeeded()
@@ -139,16 +139,21 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.appearance.shape, .roundRect(cornerRadius: cornerRadius))
     }
     
-    func test_customScaledShape() {
+    func test_scaledRoundRectShape() {
+        // Given
         let sut = makeSUT()
-        let cornerRadius: CGFloat = 13
+        sut.titleLabel.maximumScaleFactor = 2
+        let cornerRadius = CGFloat(Int.random(in: 1...8))
         sut.appearance.shape = .scaledRoundRect(cornerRadius: cornerRadius)
-        
-        sut.layoutIfNeeded()
-        
-        let scaledFactor = sut.titleLabel.layout.lineHeight / sut.titleLabel.typography.lineHeight
-        
-        XCTAssertEqual(sut.layer.cornerRadius, cornerRadius * scaledFactor )
+        let (parent, child) = makeNestedViewControllers(subview: sut)
+
+        // When
+        let traits = UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)
+        parent.setOverrideTraitCollection(traits, forChild: child)
+        sut.traitCollectionDidChange(traits)
+
+        // Then
+        XCTAssertEqual(sut.layer.cornerRadius, 2 * cornerRadius)
         XCTAssertEqual(sut.appearance.shape, .scaledRoundRect(cornerRadius: cornerRadius))
     }
     
