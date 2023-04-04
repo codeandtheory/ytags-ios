@@ -139,6 +139,19 @@ final class TagViewTests: XCTestCase {
         XCTAssertEqual(sut.appearance.shape, .roundRect(cornerRadius: cornerRadius))
     }
     
+    func test_customScaledShape() {
+        let sut = makeSUT()
+        let cornerRadius: CGFloat = 13
+        sut.appearance.shape = .scaledRoundRect(cornerRadius: cornerRadius)
+        
+        sut.layoutIfNeeded()
+        
+        let scaledFactor = sut.titleLabel.layout.lineHeight / sut.titleLabel.typography.lineHeight
+        
+        XCTAssertEqual(sut.layer.cornerRadius, cornerRadius * scaledFactor )
+        XCTAssertEqual(sut.appearance.shape, .scaledRoundRect(cornerRadius: cornerRadius))
+    }
+    
     func test_defaultShape() {
         let sut = makeSUT()
         sut.layoutIfNeeded()
